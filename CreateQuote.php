@@ -75,7 +75,7 @@ catch(PDOexception $e){
                     echo "<td>",($ar[2]),"</td>";
                     echo "<td>",($ar[3]),"</td>";
                     echo "<td>",($ar[4]),"</td>";
-                    echo "/n"
+                    echo "/n";
                     echo "</tr>";
                 }
                 echo "</tbody>";
