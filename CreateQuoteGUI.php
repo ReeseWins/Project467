@@ -12,11 +12,9 @@
         </style>
         <h1>Quotes</h1>
         <br><br>
-        <!--Put links to other pages here-->
     </head>
     <body bgcolor="#dc143c">
         <center>
-            <!--Quote entry form-->
             <?php
                 include 'Functions.php';
                 display();
@@ -36,7 +34,7 @@
                         echo "<th>Customer</th>";
                     echo "</thead>";
 
-                    $customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '22');
+                    $customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '3306');
 
                     $SQL = "Select * from Quote;";
 
