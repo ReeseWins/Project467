@@ -39,7 +39,7 @@
     createNewQuote($quote);
 
     function newQuote() {
-        if ($customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '22')) {
+        if ($customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '3306')) {
             $customerSQL = "Select * from customers;";
             $customerResult = mysqli_query($customerConnection, $customerSQL);
 
