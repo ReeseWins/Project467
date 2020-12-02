@@ -33,9 +33,9 @@
 
 <?php
     include('Functions.php');
-    include('createQuoteControl.php');
+    //include('createQuoteControl.php');
     newQuote();
-    $quote = array($_POST['Item'], $_POST['Price'], $_POST['Discount'], $_POST['Note'], $_POST['CustomerID']);
+    $quote = array($_POST['Item'], $_POST['OrderAmount'], $_POST['Discount'], $_POST['Secret_Note'], $_POST['CustomerID']);
     createNewQuote($quote);
 
     function newQuote() {
@@ -67,20 +67,20 @@
 
                 echo "<table>";
                     echo "<tr>";
-                        echo "<td>Items: </td>";
-                        echo "<td><textarea row='4' cols = '22' name = 'lineItemTxt'></textarea></td>";
-                    echo "</tr>";
-                    echo "<tr>";
-                        echo "<td>Note: </td>";
-                        echo "<td><input type = 'text' name = 'Note'></td>";
+                        echo "<td>Item: </td>";
+                        echo "<td><textarea row='4' cols = '22' name = 'Item'></textarea></td>";
                     echo "</tr>";
                     echo "<tr>";
                         echo "<td>Price: </td>";
-                        echo "<td><input type = 'text' name = 'Price'></td>";
+                        echo "<td><input type = 'text' name = 'OrderAmount'></td>";
                     echo "</tr>";
                     echo "<tr>";
                         echo "<td>Discounts: </td>";
-                        echo "<td><input type = 'text' name = 'Discounts'></td>";
+                        echo "<td><input type = 'text' name = 'Discount'></td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                        echo "<td>Note: </td>";
+                        echo "<td><input type = 'text' name = 'Secret_Note'></td>";
                     echo "</tr>";
                 echo "</table>";
 
