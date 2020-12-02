@@ -67,19 +67,19 @@
 
                 echo "<table>";
                     echo "<tr>";
-                        echo "<td>Items: </td>";
+                        echo "<td>Item: </td>";
                         echo "<td><textarea row='4' cols = '22' name = 'lineItemTxt'></textarea></td>";
                     echo "</tr>";
                     echo "<tr>";
-                        echo "<td>Note: </td>";
+                        echo "<td>Secret_Note: </td>";
                         echo "<td><input type = 'text' name = 'Note'></td>";
                     echo "</tr>";
                     echo "<tr>";
-                        echo "<td>Price: </td>";
+                        echo "<td>OrderAmt: </td>";
                         echo "<td><input type = 'text' name = 'Price'></td>";
                     echo "</tr>";
                     echo "<tr>";
-                        echo "<td>Discounts: </td>";
+                        echo "<td>Discount: </td>";
                         echo "<td><input type = 'text' name = 'Discounts'></td>";
                     echo "</tr>";
                 echo "</table>";
