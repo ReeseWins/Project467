@@ -33,7 +33,7 @@
 
 <?php
     include('Functions.php');
-    //include('createQuoteControl.php');
+    include('createNewQuote.php');
     newQuote();
     $quote = array($_POST['Item'], $_POST['OrderAmount'], $_POST['Discount'], $_POST['Secret_Note'], $_POST['CustomerID']);
     createNewQuote($quote);
