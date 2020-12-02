@@ -38,9 +38,23 @@
     $quote = array($_POST['Item'], $_POST['OrderAmount'], $_POST['Discount'], $_POST['Secret_Note'], $_POST['CustomerID']);
     createNewQuote($quote);
 
+    $user = 'z1808886';
+    $pass = '1995Sep20';
+    $host = 'courses';
+    $db = 'z1808886';
+    $Current_User = $_SESSION['Account_ID'];
+    try {
+        $dsn = "mysql:host=$host;dbname=$db";
+        $pdo = new PDO($dsn, $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+catch(PDOexception $e){
+  echo "Connection failed: " . $e->getMessage();
+}
+
     function newQuote() {
         if ($customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '3306')) {
-            $customerSQL = "Select * from customers;";
+            $customerSQL = "SELECT Item, OrderAmt, Price, Discount, Secret_Note FROM PurchaseOrder;";
             $customerResult = mysqli_query($customerConnection, $customerSQL);
 
             if (mysqli_connect_errno()) {
@@ -61,6 +75,7 @@
                     echo "<td>",($ar[2]),"</td>";
                     echo "<td>",($ar[3]),"</td>";
                     echo "<td>",($ar[4]),"</td>";
+                    echo "/n"
                     echo "</tr>";
                 }
                 echo "</tbody>";
