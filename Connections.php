@@ -1,7 +1,7 @@
 <?php
 
 function db_connect_hopper() {
-	$server = "hopper.cs.niu.edu";
+	$server = "courses";
 	$port = "3306";
 	$database = "z1808886";
 	$user = "z1808886";
