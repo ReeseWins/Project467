@@ -1,7 +1,7 @@
 //Brian Olczak
 // Group 8B
 
-
+include 'Functions.php';
 
 
 <!DOCTYPE HTML>
