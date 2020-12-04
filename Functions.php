@@ -2,47 +2,75 @@
 // Group 8B
 
 <?php
-    function createNewQuote($quoteArr) {
-        $connection = dbConnect();
 
-        $item = $quoteArr[0];
-        $price = $quoteArr[1];
-        $discount = $quoteArr[2];
-        $notes = $quoteArr[3];
+    require_once 'Connections.php';
 
-        $approval = 0;
-
-        if ($quoteArr[4] == "on") {
-            $approval = 1;
+    function createNewOrder($orderArr) {
+        if (!$connection = db_connect_hopper()) {
+            echo "Error: Unable to connect to the database.";
+            return;
         }
-        $customerID = $quoteArr[5];
 
-        $insertSQL = "Insert into Quote (item, price, discount, notes, approval) values ('$item', '$price', '$discount', '$notes', '$approval')";
+        $customerID = $orderArr['customerID'];
+        $item = $orderArr['item'];
+        $price = $orderArr['price'];
+        $discount = $orderArr['discount'];
+        $salesId = $orderArr['salesId'];
 
-        if (mysqli_query($connection, $insertSQL)) {
-            echo "Your Purchase Number is: ".mysqli_insert_id($connection);
+        // TODO
+        // Fetch Sales Comm_per using sales_id and calculate comm_amt
+        $commAmt = 0;
+        
+
+        // TODO: Admin feature
+        $isApproved = FALSE;
+        // if ($orderArr[4] == "on") {
+        //     $approval = 1;
+        // }
+        
+        $notes = $orderArr['notes'];
+
+        $query = "INSERT INTO PurchaseOrder (customer_id, item, order_amt, discount, sales_id, comm_amt, is_approved, secret_note) values ('$item', '$price', '$discount', '$notes', '$approval')";
+
+        if ($conn->query($query)) {
+            echo "Your Purchase Number is: " . mysqli_insert_id();
         }
         else {
-            echo "Error:".mysqli_error($connection);
+            echo "Error:" . mysqli_error($connection);
         }
-        mysqli_close($connection);
+
+        db_close($connection);
     }
 
-    function quoteUpdate() {
-        $connection = dbConnect();
-
-        $item = $_POST['Item'];
-        $price = $_POST['Price'];
-        $discount = $_POST['Discount'];
-        $notes = $_POST['Notes'];
-        $customerID = $_POST['CustomerID'];
-        $purchaseOrder = $_POST['PurchaseOrder'];
-
-        $updateSQL = "Update Quote SET Item = '$item', Price = '$price', Discount = '$discount', Notes = $notes, CustomerID = '$customerID', PurchaseOrder = '$purchaseOrder';";
-
-        if (!$result = mysqli_query($connection, $updateSQL)) {
-            echo "Error: ".mysqli_error($connection);
+    function getOrders($salesId) {
+        if (!$connection = dbConnect()) {
+            echo "Error: Unable to connect to the database.";
+            return null;
         }
-        mysqli_close($connection);
+
+        $query = "SELECT * FROM PurchaseOrder where sales_id = " . $salesId;
+
+        $result = $conn->query($query);
+        if (mysql_num_rows($result) > 0)
+            {
+            Print "<table border>";
+            Print "<tr>";
+            Print "<th>ID</th><th>CustomerID</th><th>Item</th><th>Order Amount</th><th>Commision Amount</th><th>Approved</th><th>Note</th>";
+            Print "<tr>";
+            while($row = $result->fetch_assoc()) {
+                Print "<tr>";
+                Print "<td>".$row['order_id'] . "</td> ";
+                Print "<td>".$row['customer_id'] . " </td>";
+                Print "<td>".$row['item'] . " </td>";
+                Print "<td>".$row['order_amt'] . " </td>";
+                Print "<td>".$row['comm_amt'] . " </td>";
+                Print "<td>".$row['is_approved'] . " </td>";
+                Print "<td>".$row['secret_note'] . " </td></tr>";
+            }
+            Print "</table>";
+        } else {
+            Print "0 records found";
+        }
     }
+
 ?>

@@ -1,5 +1,10 @@
 //Brian Olczak
 // Group 8B
+
+
+
+
+<!DOCTYPE HTML>
 <html>
     <head>
         <title>Customer Quote</title>
@@ -15,23 +20,32 @@
         </style>
     </head>
     <body bgcolor="#f8f8ff">
+        
         <?php
-            include('Functions.php');
-            newQuote();
-            $quote = array($_POST['Item'], $_POST['OrderAmount'], $_POST['Discount'], $_POST['Secret_Note'], $_POST['CustomerID']);
-            createNewQuote($quote);
+        session_start();
+        newQuote();
+        $order = array(
+            'customerID'    =>  $_POST['CustomerID'],
+            'item'          =>  $_POST['Item'],
+            'price'         =>  $_POST['OrderAmount'],
+            'discount'      =>  $_POST['Discount'],
+            'salesId'       =>  1,      // TODO: fetch this sales_associate id from session
+            'notes'         =>  $_POST['Secret_Note']
+        );
+        createNewOrder($order);
 
-            function newQuote() {
-                if ($customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '3306')) {
-                    $customerSQL = "Select * from customers;";
-                    $customerResult = mysqli_query($customerConnection, $customerSQL);
+        function newQuote() {
+            if ($customerConnection = mysqli_connect('blitz.cs.niu.edu', 'student', 'student', 'csci467', '3306')) {
+                $customerSQL = "Select * from customers;";
+                $customerResult = mysqli_query($customerConnection, $customerSQL);
 
-                    if (mysqli_connect_errno()) {
-                        echo "Connection Error: ".mysqli_error($customerConnection);
-                    }
-                    else {
-                        echo "<form method = 'post' action = 'CreateQuote.php'>";
+                if (mysqli_connect_errno()) {
+                    echo "Connection Error: ".mysqli_error($customerConnection);
+                }
+                else {
+                    echo "<form method = 'post' action = 'CreateQuote.php'>";
         ?>
+
         </br>
             Customer info
         <div>
@@ -68,7 +82,7 @@
             echo "<table>";
                 echo "<tr>";
                     echo "<td>Items: </td>";
-                    echo "<td><textarea row='4' cols = '22' name = 'Item'></textarea></td>";
+                    echo "<td><input type = 'text' name = 'Item'></td>";
                 echo "</tr>";
                 echo "<tr>";
                     echo "<td>Note: </td>";
@@ -86,12 +100,15 @@
 
             echo "<input type = 'submit' name = 'createNewSubmit' value = 'Submit'>";
             echo "</form>";
+            
+                }
             }
+            elseif(mysqli_connect_errno()) {
+                echo "Connection error:". mysqli_connect_error();
+            }
+
+            mysql_close($customerConnection);
         }
-        elseif(mysqli_connect_errno()) {
-            echo "Connection error:". mysqli_connect_error();
-        }
-    }
         ?>
     </body>
 </html>

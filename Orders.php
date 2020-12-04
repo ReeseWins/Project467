@@ -1,14 +1,6 @@
 <html>
     <?php
-    include('Session.php');
-        $connection = mysqli_connect("courses", "z1808886", "1995Sep20", "z1808886");
-
-        if (!$connection) {
-            echo "Error: Unable to connect to MySQL." . PHP_EOL;
-            echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-            echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-            exit;
-        }
+        include 'Session.php';
     ?>
 
     <head>
@@ -86,77 +78,16 @@
                 <table>
 
                     <?php
+                        include 'Connections.php';
+                        include 'Functions.php';
+                        $conn = db_connect_hopper();
 
-                        $servername = "courses";
-                        $username = "z1808886";
-                        $password = "1995Sep20";
-                        $dbname = "z1808886";
+                        $salesId = 1;   // TODO: get this id from session
+                        getOrders($salesId);
 
-                        //Create connection
-                        $C1 = new mysqli($servername, $username, $password, $dbname);
-
-                        if ($C1->connect_error) {
-                            die("Connection failed: ".$C1->connect_error);
-                        }
-
-                        $SQL = "SELECT * FROM Quote";
-                        $result = $C1->query($SQL);
-
-                        if ($result->num_rows > 0) {
-                            echo "<tr><th> QID </th><th> OrderAmount </th><th> Discount </th><th> Item </th><th> Secret_Note </th><th> Approval </th>";
-
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr><td>". $row["QID"]."</td><td>" . $row["OrderAmount"]."</td><td>" . $row["discount"]. "</td><td>" .$row["Item"]. "</td><td>" .$row["Secret_Note"]. "</td><td>" .$row["Approval"]. "</td></tr>";
-                            }
-                            echo "</table>";
-                        }
-                        else {
-                            echo "0 results";
-                        }
-                        $C1->close();
+                        db_close($conn);
                     ?>
 
-                </table><br>
-                Customer Database
-                <div STYLE=" height: 310px; width: 670px; font-size: 10px; overflow: auto;">
-                <br>
-                <table>
-                    <?php
-                        //Customer Database connection
-                        $servername = "blitz.cs.niu.edu";
-                        $username = "student";
-                        $password = "student";
-                        $dbname = "csci467";
-
-                        // Create connection
-                        $C2 = new mysqli($servername, $username, $password, $dbname);
-                        // Check connection
-                        if ($C2->connect_error) {
-                            die("Connection failed: " . $C1->connect_error);
-                        }
-                        else {
-                            echo "Connection Success";
-                        }
-                            //populate customer database
-                            $sql2 = "SELECT * FROM customers";
-                            $result = $C2->query($sql2);
-
-                            //fill the table
-                            if ($result->num_rows > 0) {
-                                echo "<tr><th> Id </th><th> Name </th><th> City </th><th> Street </th><th> Contact </th></th>";
-                                // output data of each row
-                                while($row = $result->fetch_assoc()) {
-                                    echo "<tr><td>". $row["id"]."</td><td>" . $row["name"]."</td><td>" . $row["city"]. "</td><td>" .$row["street"]. "</td><td>" .$row["contact"]. "</td></tr>";
-
-                                }
-                                    echo "</table>";
-                            }
-                            else {
-                                echo "0 results";
-                            }
-
-                        $C2->close();
-                    ?>
                 </table>
             </div>
     </body>
