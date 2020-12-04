@@ -106,7 +106,7 @@
             elseif(mysqli_connect_errno()) {
                 echo "Connection error:". mysqli_connect_error();
             }
-            mysqli_close($customerConnection);
+           db_close($customerConnection);
         }
         ?>
     </body>
