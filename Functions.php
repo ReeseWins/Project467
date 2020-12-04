@@ -38,7 +38,7 @@
         $customerID = $_POST['CustomerID'];
         $purchaseOrder = $_POST['PurchaseOrder'];
 
-        $updateSQL = "Update the Quote SET Item = '$item', Price = '$price', Discount = '$discount', Notes = $notes, CustomerID = '$customerID', PurchaseOrder = '$purchaseOrder';";
+        $updateSQL = "Update Quote SET Item = '$item', Price = '$price', Discount = '$discount', Notes = $notes, CustomerID = '$customerID', PurchaseOrder = '$purchaseOrder';";
 
         if (!$result = mysqli_query($connection, $updateSQL)) {
             echo "Error: ".mysqli_error($connection);
